@@ -820,7 +820,7 @@
         ];
 
         function generateMapLink(restaurant) {
-            const query = encodeURIComponent(restaurant.name + " " + restaurant.address);
+            const query = encodeURIComponent(restaurant.address);
             return `https://map.naver.com/v5/search/${query}`;
         }
 
