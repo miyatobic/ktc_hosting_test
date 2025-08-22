@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-062TVYBB25"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-062TVYBB25');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>강남구청역 점심 맛집 랜덤 추천기</title>
+    <title>강남구청역 맛집 랜덤 추첨기</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        
+
         .header {
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
             color: white;
-            text-align: center;
             padding: 30px;
+            text-align: center;
         }
-        
+
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        
+
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
         }
-        
+
         .main-content {
             padding: 40px;
         }
-        
-        .random-section {
+
+        .picker-section {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
-        
+
         .random-button {
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
             color: white;
             border: none;
             padding: 20px 40px;
@@ -63,262 +73,165 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
-        
+
         .random-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-        
+
         .random-button:active {
             transform: translateY(0);
         }
-        
+
         .result {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
             padding: 30px;
             border-radius: 15px;
             margin: 20px 0;
-            text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            display: none;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s ease;
         }
-        
+
         .result.show {
-            display: block;
-            animation: slideIn 0.5s ease-out;
+            opacity: 1;
+            transform: scale(1.02);
         }
-        
+
         .result h3 {
-            font-size: 2em;
+            color: #2d3436;
+            font-size: 1.8em;
             margin-bottom: 15px;
         }
-        
+
         .result-info {
             font-size: 1.1em;
+            color: #636e72;
             line-height: 1.6;
         }
-        
-        .map-link {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .map-link:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.05);
-        }
-        
-        .restaurant-grid {
+
+        .restaurant-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
-        
+
         .restaurant-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background: white;
+            border: 2px solid #f1f2f6;
+            border-radius: 10px;
+            padding: 20px;
             transition: all 0.3s ease;
-            border-left: 5px solid #4ECDC4;
+            cursor: pointer;
         }
-        
+
         .restaurant-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #74b9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .restaurant-name {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: bold;
-            color: #333;
+            color: #2d3436;
             margin-bottom: 10px;
         }
-        
+
         .restaurant-type {
-            background: #FF6B6B;
+            background: #74b9ff;
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 5px 10px;
+            border-radius: 15px;
             font-size: 0.9em;
             display: inline-block;
             margin-bottom: 10px;
         }
-        
+
         .restaurant-address {
-            color: #666;
-            margin-bottom: 15px;
+            color: #636e72;
+            margin-bottom: 10px;
             font-size: 0.95em;
         }
-        
-        .restaurant-link {
-            display: inline-block;
-            background: #4ECDC4;
+
+        .map-link {
+            background: #00b894;
             color: white;
-            text-decoration: none;
-            padding: 8px 16px;
+            padding: 8px 15px;
             border-radius: 20px;
+            text-decoration: none;
             font-size: 0.9em;
+            display: inline-block;
             transition: all 0.3s ease;
         }
-        
-        .restaurant-link:hover {
-            background: #45b7b7;
+
+        .map-link:hover {
+            background: #00a085;
             transform: scale(1.05);
         }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
+
         .spinning {
-            animation: pulse 0.5s ease-in-out;
+            animation: spin 0.5s linear;
         }
-        
-        .section-title {
-            text-align: center;
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .emoji {
             font-size: 2em;
-            color: #333;
-            margin-bottom: 30px;
-            position: relative;
+            margin: 0 10px;
         }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            margin: 15px auto;
-            border-radius: 2px;
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .restaurant-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🍽️ 강남구청역 점심 맛집</h1>
-            <p>오늘 점심 뭐 먹을지 고민된다면? 랜덤으로 추천받아보세요!</p>
+            <h1>🍽️ 강남구청역 맛집 랜덤 추첨기 🎲</h1>
+            <p>오늘 점심 메뉴 고민 끝! 랜덤으로 맛집을 추천해드려요</p>
         </div>
-        
+
         <div class="main-content">
-            <div class="random-section">
+            <div class="picker-section">
                 <button class="random-button" onclick="pickRandomRestaurant()">
-                    🎲 랜덤 맛집 추천받기!
+                    🎯 랜덤 맛집 뽑기! 🎯
                 </button>
-                <div id="result" class="result"></div>
+                
+                <div id="result" class="result">
+                    <h3>🤔 오늘 뭐 먹을까요?</h3>
+                    <div class="result-info">
+                        위 버튼을 눌러서 랜덤으로 맛집을 추천받아보세요!
+                    </div>
+                </div>
             </div>
+
+            <h2 style="text-align: center; margin-bottom: 30px; color: #2d3436;">📍 강남구청역 근처 맛집 리스트</h2>
             
-            <h2 class="section-title">🗺️ 강남구청역 맛집 리스트</h2>
-            
-            <div class="restaurant-grid">
-                <div class="restaurant-card">
-                    <div class="restaurant-name">진미평양냉면</div>
-                    <div class="restaurant-type">평양냉면</div>
-                    <div class="restaurant-address">서울 강남구 선릉로 420</div>
-                    <a href="https://map.naver.com/v5/search/진미평양냉면" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">25T</div>
-                    <div class="restaurant-type">일본철판요리</div>
-                    <div class="restaurant-address">서울 강남구 논현동</div>
-                    <a href="https://map.naver.com/v5/search/25T%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">이모가있는집</div>
-                    <div class="restaurant-type">청국장/한식</div>
-                    <div class="restaurant-address">서울 강남구 선릉로 420</div>
-                    <a href="https://map.naver.com/v5/search/이모가있는집%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">정가네손칼국수</div>
-                    <div class="restaurant-type">칼국수/수제비</div>
-                    <div class="restaurant-address">서울 강남구 선릉로129길 11</div>
-                    <a href="https://map.naver.com/v5/search/정가네손칼국수" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">해목</div>
-                    <div class="restaurant-type">히츠마부시/일식</div>
-                    <div class="restaurant-address">서울 강남구 청담동</div>
-                    <a href="https://map.naver.com/v5/search/해목%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">대가방</div>
-                    <div class="restaurant-type">짜장면/중식</div>
-                    <div class="restaurant-address">서울 강남구 논현동</div>
-                    <a href="https://map.naver.com/v5/search/대가방%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">가츠라</div>
-                    <div class="restaurant-type">돈까스/일식</div>
-                    <div class="restaurant-address">서울 강남구 논현동</div>
-                    <a href="https://map.naver.com/v5/search/가츠라%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">낭만식당</div>
-                    <div class="restaurant-type">함박스테이크/경양식</div>
-                    <div class="restaurant-address">서울 강남구 논현동</div>
-                    <a href="https://map.naver.com/v5/search/낭만식당%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">봉밀가</div>
-                    <div class="restaurant-type">평양냉면</div>
-                    <div class="restaurant-address">서울 강남구 청담동</div>
-                    <a href="https://map.naver.com/v5/search/봉밀가" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">꼼다비뛰드</div>
-                    <div class="restaurant-type">프랑스 베이커리</div>
-                    <div class="restaurant-address">서울 강남구 논현동</div>
-                    <a href="https://map.naver.com/v5/search/꼼다비뛰드" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">수묵당</div>
-                    <div class="restaurant-type">오마카세/스시</div>
-                    <div class="restaurant-address">서울 강남구 논현동 111-8</div>
-                    <a href="https://map.naver.com/v5/search/수묵당%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
-                
-                <div class="restaurant-card">
-                    <div class="restaurant-name">봉화전</div>
-                    <div class="restaurant-type">전/한식</div>
-                    <div class="restaurant-address">서울 강남구 봉은사로 632</div>
-                    <a href="https://map.naver.com/v5/search/봉화전%20강남구청역" target="_blank" class="restaurant-link">네이버지도 보기</a>
-                </div>
+            <div class="restaurant-list" id="restaurantList">
+                <!-- 맛집 카드들이 여기에 동적으로 생성됩니다 -->
             </div>
         </div>
     </div>
@@ -328,85 +241,211 @@
             {
                 name: "진미평양냉면",
                 type: "평양냉면",
-                address: "서울 강남구 선릉로 420",
-                mapUrl: "https://map.naver.com/v5/search/진미평양냉면"
-            },
-            {
-                name: "25T",
-                type: "일본철판요리",
-                address: "서울 강남구 논현동",
-                mapUrl: "https://map.naver.com/v5/search/25T%20강남구청역"
-            },
-            {
-                name: "이모가있는집",
-                type: "청국장/한식",
-                address: "서울 강남구 선릉로 420",
-                mapUrl: "https://map.naver.com/v5/search/이모가있는집%20강남구청역"
-            },
-            {
-                name: "정가네손칼국수",
-                type: "칼국수/수제비",
-                address: "서울 강남구 선릉로129길 11",
-                mapUrl: "https://map.naver.com/v5/search/정가네손칼국수"
-            },
-            {
-                name: "해목",
-                type: "히츠마부시/일식",
-                address: "서울 강남구 청담동",
-                mapUrl: "https://map.naver.com/v5/search/해목%20강남구청역"
-            },
-            {
-                name: "대가방",
-                type: "짜장면/중식",
-                address: "서울 강남구 논현동",
-                mapUrl: "https://map.naver.com/v5/search/대가방%20강남구청역"
-            },
-            {
-                name: "가츠라",
-                type: "돈까스/일식",
-                address: "서울 강남구 논현동",
-                mapUrl: "https://map.naver.com/v5/search/가츠라%20강남구청역"
-            },
-            {
-                name: "낭만식당",
-                type: "함박스테이크/경양식",
-                address: "서울 강남구 논현동",
-                mapUrl: "https://map.naver.com/v5/search/낭만식당%20강남구청역"
+                address: "서울특별시 강남구 논현동 115-10",
+                description: "★4.2 냉면 전문점, 접시만두로도 유명"
             },
             {
                 name: "봉밀가",
                 type: "평양냉면",
-                address: "서울 강남구 청담동",
-                mapUrl: "https://map.naver.com/v5/search/봉밀가"
+                address: "서울특별시 강남구 삼성동 8-1",
+                description: "★4.3 메밀물냉면으로 유명한 냉면 맛집"
             },
             {
-                name: "꼼다비뛰드",
-                type: "프랑스 베이커리",
-                address: "서울 강남구 논현동",
-                mapUrl: "https://map.naver.com/v5/search/꼼다비뛰드"
+                name: "대가방 본점",
+                type: "중식당",
+                address: "서울특별시 강남구 논현동 99-7",
+                description: "★4.3 수요미식회 출연, 짜장면과 탕수육 전문"
+            },
+            {
+                name: "해목",
+                type: "일식당",
+                address: "서울특별시 강남구 청담동",
+                description: "★4.7 히츠마부시(장어덮밥) 전문점"
+            },
+            {
+                name: "25T",
+                type: "일본철판요리",
+                address: "서울특별시 강남구 논현동",
+                description: "철판요리 전문점, 점심시간 대기 필수"
+            },
+            {
+                name: "낭만식당",
+                type: "경양식",
+                address: "서울특별시 강남구 논현동",
+                description: "함박스테이크, 돈까스 전문, 가성비 좋은 곳"
+            },
+            {
+                name: "가츠라",
+                type: "일식당",
+                address: "서울특별시 강남구 강남구청역 근처",
+                description: "일본선술집 분위기, 다양한 일식 메뉴"
+            },
+            {
+                name: "공리",
+                type: "중식당",
+                address: "서울특별시 강남구 논현동 240-14 (선릉로129길 24)",
+                description: "중식 전문점, 탕수육과 다양한 중화요리"
+            },
+            {
+                name: "스시야",
+                type: "일식당 (스시)",
+                address: "서울특별시 강남구 논현동 117-8",
+                description: "오마카세 스시 전문점, 02-545-0090"
+            },
+            {
+                name: "해몽",
+                type: "고기집",
+                address: "서울특별시 강남구 논현동 107-11",
+                description: "등갈비, 목살 전문, 맛있는녀석들 출연"
+            },
+            {
+                name: "트리아농",
+                type: "카페/디저트",
+                address: "서울특별시 강남구 청담동 26-5",
+                description: "애프터눈티세트 전문, 데이트 코스로 인기"
+            },
+            {
+                name: "신도세기",
+                type: "한식",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "김치찌개, 김치찜 전문, 고기가 많이 들어간 김치찌개"
+            },
+            {
+                name: "이차이",
+                type: "중식당",
+                address: "서울특별시 강남구 강남구청역 근처",
+                description: "깔끔한 인테리어의 모던 중식당, 7년차 직장인 추천"
+            },
+            {
+                name: "젠제로",
+                type: "카페/디저트",
+                address: "서울특별시 강남구 삼성동 10-18",
+                description: "케이크, 젤라또 전문점, 깔끔한 분위기"
+            },
+            {
+                name: "돌곰네",
+                type: "해산물",
+                address: "서울특별시 강남구 논현동 105",
+                description: "돌문어숙회, 해물요리 전문, 맛있는녀석들 출연"
+            },
+            {
+                name: "고향집",
+                type: "한식",
+                address: "서울특별시 강남구 논현동 115-5",
+                description: "청국장, 보쌈 전문, 다코 숨은맛집"
             },
             {
                 name: "수묵당",
-                type: "오마카세/스시",
-                address: "서울 강남구 논현동 111-8",
-                mapUrl: "https://map.naver.com/v5/search/수묵당%20강남구청역"
+                type: "한식",
+                address: "서울특별시 강남구 논현동 111-8",
+                description: "월요일 휴무, 분위기 좋은 한식당"
             },
             {
-                name: "봉화전",
-                type: "전/한식",
-                address: "서울 강남구 봉은사로 632",
-                mapUrl: "https://map.naver.com/v5/search/봉화전%20강남구청역"
+                name: "강남교자",
+                type: "한식",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "교자만두가 유명한 맛집, 호불호 없는 맛"
+            },
+            {
+                name: "뱅뱅막국수",
+                type: "한식",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "★4.5 막국수 전문점, 강남역 인기 맛집"
+            },
+            {
+                name: "하이디라오",
+                type: "중식당",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "★4.3 훠궈 전문점, 서비스로 유명"
+            },
+            {
+                name: "대우부대찌개",
+                type: "한식",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "★4.1 부대찌개 전문점"
+            },
+            {
+                name: "떡도리탕",
+                type: "한식",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "닭볶음탕과 떡볶이가 합쳐진 독특한 메뉴"
+            },
+            {
+                name: "팔자막창",
+                type: "고기집",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "리쌍이 운영하는 막창집, 그래피티 인테리어"
+            },
+            {
+                name: "AY라운지",
+                type: "바/라운지",
+                address: "서울특별시 강남구 제리스 플래닛호텔 지하",
+                description: "분위기 좋은 바, 또오해영 촬영지"
+            },
+            {
+                name: "삼통치킨",
+                type: "치킨집",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "칠리치킨, 파닭치킨, 까르보나라치킨 전문"
+            },
+            {
+                name: "철공소",
+                type: "고기집",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "철공소 컨셉의 바베큐 하우스, 독특한 인테리어"
+            },
+            {
+                name: "오리대감",
+                type: "고기집",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "오리구이 전문점, 대형 돌판에 구워먹는 오리"
+            },
+            {
+                name: "동대문닭한마리",
+                type: "한식",
+                address: "서울특별시 강남구 논현동 98-12 1층",
+                description: "24시간 운영, 닭한마리 전문점"
+            },
+            {
+                name: "어메이징타이",
+                type: "태국음식",
+                address: "서울특별시 강남구 강남역 근처",
+                description: "태국요리 전문점, 다양한 메뉴와 꿔바로우"
             }
         ];
+
+        function generateMapLink(restaurant) {
+            const query = encodeURIComponent(restaurant.name + " " + restaurant.address);
+            return `https://map.naver.com/v5/search/${query}`;
+        }
+
+        function createRestaurantCards() {
+            const listContainer = document.getElementById('restaurantList');
+            
+            restaurants.forEach(restaurant => {
+                const card = document.createElement('div');
+                card.className = 'restaurant-card';
+                card.innerHTML = `
+                    <div class="restaurant-name">${restaurant.name}</div>
+                    <div class="restaurant-type">${restaurant.type}</div>
+                    <div class="restaurant-address">📍 ${restaurant.address}</div>
+                    <div style="margin-bottom: 15px; color: #636e72;">${restaurant.description}</div>
+                    <a href="${generateMapLink(restaurant)}" target="_blank" class="map-link">
+                        📍 네이버 지도에서 보기
+                    </a>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
 
         function pickRandomRestaurant() {
             const button = document.querySelector('.random-button');
             const result = document.getElementById('result');
             
-            // 버튼 애니메이션
+            // 버튼 스핀 효과
             button.classList.add('spinning');
-            button.textContent = '🎲 추천 중...';
             button.disabled = true;
+            button.innerHTML = '🎲 추첨 중... 🎲';
             
             // 결과 숨기기
             result.classList.remove('show');
@@ -418,19 +457,14 @@
                 
                 // 결과 표시
                 result.innerHTML = `
-                    <h3>🎉 오늘의 추천 맛집</h3>
+                    <h3>🎉 오늘의 추천 맛집! 🎉</h3>
                     <div class="result-info">
-                        <div style="font-size: 1.8em; font-weight: bold; margin-bottom: 10px;">
-                            ${selectedRestaurant.name}
-                        </div>
-                        <div style="font-size: 1.2em; margin-bottom: 10px;">
-                            📍 ${selectedRestaurant.type}
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            🗺️ ${selectedRestaurant.address}
-                        </div>
-                        <a href="${selectedRestaurant.mapUrl}" target="_blank" class="map-link">
-                            📍 네이버지도에서 보기
+                        <strong style="font-size: 1.3em; color: #2d3436;">${selectedRestaurant.name}</strong><br>
+                        <span style="background: #74b9ff; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.9em;">${selectedRestaurant.type}</span><br><br>
+                        📍 ${selectedRestaurant.address}<br>
+                        ℹ️ ${selectedRestaurant.description}<br><br>
+                        <a href="${generateMapLink(selectedRestaurant)}" target="_blank" class="map-link">
+                            🗺️ 네이버 지도에서 길찾기
                         </a>
                     </div>
                 `;
@@ -439,10 +473,16 @@
                 
                 // 버튼 원상복구
                 button.classList.remove('spinning');
-                button.textContent = '🎲 다시 추천받기!';
                 button.disabled = false;
+                button.innerHTML = '🎯 다시 뽑기! 🎯';
+                
             }, 1000);
         }
+
+        // 페이지 로드 시 맛집 카드 생성
+        document.addEventListener('DOMContentLoaded', function() {
+            createRestaurantCards();
+        });
     </script>
 </body>
 </html>
